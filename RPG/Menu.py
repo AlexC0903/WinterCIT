@@ -1,5 +1,6 @@
 import pygame
 import src
+import Game_loop
 
 pygame.init()
 
@@ -17,19 +18,19 @@ def button(index):
     buttonW = src.display["dwidth"] * (6 / 8)
     buttonH = src.display["dheight"] * (1 / 7)
 
-    pygame.draw.rect(
-        src.gameDisplay, src.menu_buttons[index]["color"], (buttonX, buttonY, buttonW, buttonH))
+    pygame.draw.rect(src.gameDisplay, src.menu_buttons[index]["color"], (buttonX, buttonY, buttonW, buttonH))
     # Text
     smallText = pygame.font.Font("freesansbold.ttf", 20)
-    textSurf, textRect = text_objects(
-        src.menu_buttons[index]["content"], smallText)
-    textRect.center = ((src.display["dwidth"] * (1 / 2)),
-                       src.display["dheight"] * ((index * 4 + 3) / 14))
+    textSurf, textRect = text_objects(src.menu_buttons[index]["content"], smallText)
+    textRect.center = ((src.display["dwidth"] * (1 / 2)), src.display["dheight"] * ((index * 4 + 3) / 14))
     src.gameDisplay.blit(textSurf, textRect)
-    if x + w > mouse[0] > x and y + h > mouse[1] > y:
-        if click[0] == 1 and action != None:
-            action()
-
+    if buttonX + buttonW > mouse[0] > buttonX and buttonY + buttonH > mouse[1] > buttonY and click[0] == 1:
+        if index == 0:
+            print("before game loop")
+            Game_loop.game_loop()
+        if index == 2:
+            pygame.quit()
+            quit()
 
 def menu():
     is_quit = False
