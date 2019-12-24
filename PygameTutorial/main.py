@@ -14,7 +14,7 @@ orange_height = 150
 # x_change = 0
 # y_change = 0
 framerate = 60
-crashed = False
+do_once = False
 
 pygame.init()
 
@@ -35,11 +35,9 @@ def text_objects(text, font):
 def message_display(text, o_x, o_y):
     largeText = pygame.font.Font('freesansbold.ttf',26)
     TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = ((o_x),(o_y + -20))
+    TextRect.center = ((o_x + 100),(o_y + -20))
     gameDisplay.blit(TextSurf, TextRect)
     pygame.display.update()
-    time.sleep(2)
-    game_loop(x,y)
 
 def health(health, x, y):
     message_display(str(health), x, y)
@@ -50,6 +48,7 @@ def game_loop(x, y):
     y_change = 0
     orange_health = 3
     gameExit = False
+    do_once = False
 
     while not gameExit:
         for event in pygame.event.get():
@@ -75,8 +74,19 @@ def game_loop(x, y):
         x += x_change
         y += y_change
         gameDisplay.fill(white)
+        if x >= display_width - orange_width or x <= 0:
+            orange_health -= 1
+            x = display_width * 0.45
+            y = display_height * 0.8
         orange(x, y)
         health(orange_health, x, y)
+
+
+
+
+
+
+
 
         pygame.display.update()
         clock.tick(framerate)
