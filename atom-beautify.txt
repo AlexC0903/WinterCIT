@@ -1,0 +1,3 @@
+1. install atom-beautify with apm or "settings" menu.
+2. install autopep8 using pip (https://github.com/hhatto/autopep8#installation)
+3. ctrl + alt + b
