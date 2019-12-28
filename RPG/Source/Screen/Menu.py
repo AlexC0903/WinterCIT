@@ -30,26 +30,14 @@ def draw_menuFrame(gameDisplay):
     for i in range(3):
         if (Button.draw_button(
                 gameDisplay, src.display["dwidth"], src.display["dheight"], make_buttonRatio(i), menu_buttons[i]["color"])):
-            mode = i + 1
+            mode = 1 + i
         Text.draw_text(gameDisplay, "freesansbold.ttf", 20,
                        menu_buttons[i]["content"], src.display["dwidth"], src.display["dheight"], make_textRatio(i),  src.colors["black"])
     return mode
 
 
-def resize_screen(w, h):
-    src.gameDisplay = pygame.display.set_mode((w, h))
 
 
-def draw_settings():
-    is_quit = False
-    while not is_quit:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                is_quit = True
-    src.gameDisplay.fill(src.colors["white"])
-    draw_menuButton(1, resize_screen(1280, 1080))
-    pygame.display.update()
-    src.clock.tick(60)
 
 # def draw_menuButton(index):
 #     mode = 0
