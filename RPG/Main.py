@@ -11,27 +11,23 @@ import Source.Screen.Settings as Settings
 pygame.init()
 pygame.display.set_caption('The Quest for Cheese')
 
-framerate = 240
+framerate = 120
 gameDisplay = pygame.display.set_mode(
     (src.display["dwidth"], src.display["dheight"]))
 clock = pygame.time.Clock()
-
 
 
 def main():
     is_quit = False
     mode = 0
     gameMusic = True
-    x_change = 0
-    y_change = 0
-    player_pos_x=src.display["dwidth"] * (1 / 2)
-    player_pos_y=src.display["dheight"] * (1 / 2)
+    player_pos_x = src.display["dwidth"] * (1 / 2)
+    player_pos_y = src.display["dheight"] * (1 / 2)
 
     pygame.mixer.init()
 
-    mainTheme = "files/music.ogg" # mp3 is not suitable in pygame
+    mainTheme = "files/music.ogg"  # mp3 is not suitable in pygame
     pygame.mixer.music.load(mainTheme)
-
 
     while not is_quit:
         gameEvent = pygame.event.get()
@@ -40,36 +36,38 @@ def main():
                 is_quit = True
 
         gameDisplay.fill(src.colors["white"])     # background
-        if mode==0:
+        if mode == 0:
             mode += Menu.draw_menuFrame(gameDisplay)
             pygame.mixer.music.stop()
             gameMusic = True
-        elif mode==1:
+        elif mode == 1:
             if(gameMusic):
                 pygame.mixer.music.play(-1)
                 gameMusic = False
-            for event in gameEvent:
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
-                        x_change = -1
-                    elif event.key == pygame.K_RIGHT:
-                        x_change = 1
-                    elif event.key == pygame.K_UP:
-                        y_change = -1
-                    elif event.key == pygame.K_DOWN:
-                        y_change = 1
-                else:
-                    x_change = 0
-                    y_change = 0
+
+            pressedKeys = pygame.key.get_pressed()
+            # print([pressedKeys[pygame.K_LEFT], pressedKeys[pygame.K_RIGHT],
+            #        pressedKeys[pygame.K_DOWN], pressedKeys[pygame.K_UP]])
+            x_change = 0
+            y_change = 0
+            if pressedKeys[pygame.K_LEFT] and player_pos_x > 0:
+                x_change = -4
+            if pressedKeys[pygame.K_RIGHT] and player_pos_x < src.display["dwidth"] - 50:
+                x_change = 4
+            if pressedKeys[pygame.K_UP] and player_pos_y > 0:
+                y_change = -4
+            if pressedKeys[pygame.K_DOWN] and player_pos_y < src.display["dheight"] - 50:
+                y_change = 4
             player_pos_x += x_change
             player_pos_y += y_change
-            mode += Game_loop.game_loop(gameEvent, gameDisplay, player_pos_x, player_pos_y)
-        elif mode==2:
+
+            mode += Game_loop.game_loop(gameEvent,
+                                        gameDisplay, player_pos_x, player_pos_y)
+        elif mode == 2:
             mode += Settings.drawSettings(gameDisplay)
         else:
             pygame.quit()
             quit()
-
 
         pygame.display.update()
         clock.tick(framerate)
