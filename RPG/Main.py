@@ -11,9 +11,8 @@ import Source.Screen.Settings as Settings
 pygame.init()
 pygame.display.set_caption('The Quest for Cheese')
 
+
 framerate = 120
-gameDisplay = pygame.display.set_mode(
-    (src.display["dwidth"], src.display["dheight"]))
 clock = pygame.time.Clock()
 
 
@@ -21,6 +20,11 @@ def main():
     is_quit = False
     mode = 0
     gameMusic = True
+    display_size_list = [(800, 600), (1600, 1200), (1200, 900)]
+    displayChange =0
+    display_size = display_size_list[0]
+    gameDisplay = pygame.display.set_mode(
+        (display_size[0], display_size[1]))
     player_pos_x = src.display["dwidth"] * (1 / 2)
     player_pos_y = src.display["dheight"] * (1 / 2)
 
@@ -30,6 +34,10 @@ def main():
     pygame.mixer.music.load(mainTheme)
 
     while not is_quit:
+        if(displayChange != 0) :
+            gameDisplay = pygame.display.set_mode(
+                (display_size_list[displayChange][0], display_size_list[displayChange][1]))
+            displayChange = 0
         gameEvent = pygame.event.get()
         for event in gameEvent:
             if event.type == pygame.QUIT:
@@ -64,7 +72,8 @@ def main():
             mode += Game_loop.game_loop(gameEvent,
                                         gameDisplay, player_pos_x, player_pos_y)
         elif mode == 2:
-            mode += Settings.drawSettings(gameDisplay)
+            modeChange, displayChange = Settings.drawSettings(gameDisplay)
+            mode += modeChange
         else:
             pygame.quit()
             quit()

@@ -12,7 +12,7 @@ character_size = (50, 50)
 
 
 def drawScreen(gameDisplay, player_pos_x, player_pos_y):
-    Region.create_region(gameDisplay, src.colors["green"])
+    Region.create_region(gameDisplay, src.colors["green"], [(src.display["dwidth"] - 50, 0), (0, src.display["dheight"] - 50)])
     # Player
     Sprite.draw_sprite(gameDisplay, playerImg,
                        player_pos_x, player_pos_y, character_size[0], character_size[1])
