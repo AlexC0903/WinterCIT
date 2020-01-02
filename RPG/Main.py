@@ -20,7 +20,8 @@ def main():
     is_quit = False
     mode = 0
     gameMusic = True
-    display_size_list = [(800, 600), (1600, 1200), (1200, 900)]
+    region_id = 0
+    display_size_list = [(800, 600), (1200, 900), (1600, 1200)]
     displayChange =0
     display_size = display_size_list[0]
     gameDisplay = pygame.display.set_mode(
@@ -34,9 +35,10 @@ def main():
     pygame.mixer.music.load(mainTheme)
 
     while not is_quit:
-        if(displayChange != 0) :
+        if(displayChange != 0 and mode == 0) :
+            display_size = display_size_list[displayChange -1]
             gameDisplay = pygame.display.set_mode(
-                (display_size_list[displayChange][0], display_size_list[displayChange][1]))
+                (display_size[0], display_size[1]))
             displayChange = 0
         gameEvent = pygame.event.get()
         for event in gameEvent:
@@ -70,9 +72,14 @@ def main():
             player_pos_y += y_change
 
             mode += Game_loop.game_loop(gameEvent,
-                                        gameDisplay, player_pos_x, player_pos_y)
+                                        gameDisplay, player_pos_x, player_pos_y, region_id)
         elif mode == 2:
-            modeChange, displayChange = Settings.drawSettings(gameDisplay)
+            modeChange, dChange = Settings.drawSettings(gameDisplay, gameEvent)
+            if (displayChange and dChange) :
+                displayChange = dChange
+            else :
+                displayChange += dChange
+            print(displayChange)
             mode += modeChange
         else:
             pygame.quit()

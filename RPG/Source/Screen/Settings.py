@@ -18,13 +18,16 @@ def make_textRatio(index):
     return ratio
 
 
-def drawScreen(gameDisplay):
+def drawScreen(gameDisplay, gameEvent):
     modeChange = 0
     displayChange = 0
+    keydown = False
+    for event in gameEvent:
+        keydown = event.type
     for i in range(3):
-        Button.draw_button(gameDisplay, src.display["dwidth"], src.display["dheight"], make_buttonRatio(
-            i), src.colors["red"])
-        displayChange = i
+        if Button.draw_button(gameDisplay, src.display["dwidth"], src.display["dheight"], make_buttonRatio(
+                i), src.colors["red"]) and keydown:
+            displayChange = i + 1
     if Button.draw_button(gameDisplay, src.display["dwidth"], src.display["dheight"], applyButtonRatio, src.colors["green"]):
         modeChange = -2
     return modeChange, displayChange
@@ -34,6 +37,6 @@ def draw_settingFrame(gameDisplay, mode):
     print("")
 
 
-def drawSettings(gameDisplay):
+def drawSettings(gameDisplay, gameEvent):
     gameDisplay.fill(src.colors["white"])
-    return drawScreen(gameDisplay)
+    return drawScreen(gameDisplay, gameEvent)

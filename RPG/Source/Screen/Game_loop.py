@@ -11,19 +11,16 @@ character_size = (50, 50)
 
 
 
-def drawScreen(gameDisplay, player_pos_x, player_pos_y):
-    Region.create_region(gameDisplay, src.colors["green"], [(src.display["dwidth"] - 50, 0), (0, src.display["dheight"] - 50)])
+def drawScreen(gameDisplay, player_pos_x, player_pos_y, region_id):
+    Region.create_region(gameDisplay, region_id, player_pos_x, player_pos_y)
     # Player
     Sprite.draw_sprite(gameDisplay, playerImg,
                        player_pos_x, player_pos_y, character_size[0], character_size[1])
 
-
-
-
-def game_loop(gameEvent, gameDisplay, player_pos_x, player_pos_y):
+def game_loop(gameEvent, gameDisplay, player_pos_x, player_pos_y, region_id):
     mode = 0
     gameDisplay.fill(src.colors["white"])
-    drawScreen(gameDisplay, player_pos_x, player_pos_y)
+    drawScreen(gameDisplay, player_pos_x, player_pos_y, region_id)
     for event in gameEvent:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
