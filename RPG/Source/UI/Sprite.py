@@ -12,5 +12,9 @@ def check_collision(gameDisplay, sprite1, sprite2):
         x_collide = 1
     if sprite2[1] - sprite1[1] <= sprite1[3] and sprite1[1] < sprite2[1]:
         y_collide = 1
+    if sprite1[0] - sprite2[0] <= sprite2[2] and sprite2[0] < sprite1[0]:
+        x_collide = 1
+    if sprite1[1] - sprite2[1] <= sprite2[3] and sprite2[1] < sprite1[1]:
+        y_collide = 1
 
     return x_collide * y_collide

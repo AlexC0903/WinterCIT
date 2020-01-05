@@ -28,6 +28,9 @@ def main():
         (display_size[0], display_size[1]))
     player_pos_x = src.display["dwidth"] * (1 / 2)
     player_pos_y = src.display["dheight"] * (1 / 2)
+    player_health = 100
+    startTime = pygame.time.get_ticks()
+    seconds = 0
     pygame.mixer.init()
 
     mainTheme = "files/music.ogg"  # mp3 is not suitable in pygame
@@ -56,7 +59,7 @@ def main():
 
             pressedKeys = pygame.key.get_pressed()
             # print([pressedKeys[pygame.K_LEFT], pressedKeys[pygame.K_RIGHT],
-            #        pressedKeys[pygame.K_DOWN], pressedKeys[pygame.K_UP]])
+            # pressedKeys[pygame.K_DOWN], pressedKeys[pygame.K_UP]])
             x_change = 0
             y_change = 0
             if pressedKeys[pygame.K_LEFT] and player_pos_x > 0:
@@ -70,10 +73,23 @@ def main():
             player_pos_x += x_change
             player_pos_y += y_change
 
-            modeChange, id = Game_loop.game_loop(gameEvent,
-                                        gameDisplay, player_pos_x, player_pos_y, region_id, clock)
+
+            modeChange, id, damage = Game_loop.game_loop(gameEvent,
+                                        gameDisplay, player_pos_x, player_pos_y, region_id, player_health, clock)
             mode += modeChange
             region_id = id
+            if damage > 0:
+                seconds=(pygame.time.get_ticks()-startTime)/1000
+                if seconds >= 0.8:
+                    print(seconds)
+                    player_health -= damage * 5
+                    startTime = pygame.time.get_ticks()
+            seconds = 0
+
+
+
+
+
         elif mode == 2:
             modeChange, dChange = Settings.drawSettings(gameDisplay, gameEvent)
             if (displayChange and dChange) :
