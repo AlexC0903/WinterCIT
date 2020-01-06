@@ -10,21 +10,26 @@ playerImg = pygame.image.load("files/Manny.png")
 game_menuImg = pygame.image.load('files/game_menuImg.png')
 character_size = (50, 50)
 
+player_info = {"health" : 100, "x" : 0, "w" : 50, "h": 50}
+
+
 
 
 def drawScreen(gameDisplay, player_pos_x, player_pos_y, player_health, region_id):
     id, damage = Region.create_region(gameDisplay, region_id, player_pos_x, player_pos_y)
+    if(damage) :
+        player_health["health"] -= 5
     # Player
     Sprite.draw_sprite(gameDisplay, playerImg,
                        player_pos_x, player_pos_y, character_size[0], character_size[1])
-    Text.draw_text(gameDisplay, "freesansbold.ttf", 20, str(player_health), player_pos_x, player_pos_y, {"x_ratio" : 1, "y_ratio": 1}, (30,50,69))
+    Text.draw_text(gameDisplay, "freesansbold.ttf", 20, str(player_health["health"]), player_pos_x, player_pos_y, {"x_ratio" : 1, "y_ratio": 1}, (30,50,69))
 
     return id, damage
 
-def game_loop(gameEvent, gameDisplay, player_pos_x, player_pos_y, region_id, player_health, clock):
+def game_loop(gameEvent, gameDisplay, player_pos_x, player_pos_y, region_id, player_health, display_size):
     mode = 0
     gameDisplay.fill(src.colors["white"])
-    id, damage = drawScreen(gameDisplay, player_pos_x, player_pos_y, player_health, region_id)
+    id, damage = drawScreen(gameDisplay, player_pos_x, player_pos_y, player_info, region_id)
     for event in gameEvent:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
