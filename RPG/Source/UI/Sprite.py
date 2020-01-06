@@ -5,7 +5,7 @@ def draw_sprite(gameDisplay, img, x, y, w, h):
     img = pygame.transform.scale(img, (w, h))
     gameDisplay.blit(img, (x, y))
 
-def check_collision(gameDisplay, sprite1, sprite2):
+def check_collision(sprite1, sprite2):
     x_collide = 0
     y_collide = 0
     if sprite2[0] - sprite1[0] <= sprite1[2] and sprite1[0] < sprite2[0]:

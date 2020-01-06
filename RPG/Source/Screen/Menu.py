@@ -32,7 +32,7 @@ def draw_menuFrame(gameDisplay):
                 gameDisplay, src.display["dwidth"], src.display["dheight"], make_buttonRatio(i), menu_buttons[i]["color"])):
             mode = 1 + i
         Text.draw_text(gameDisplay, "freesansbold.ttf", 20,
-                       menu_buttons[i]["content"], src.display["dwidth"], src.display["dheight"], make_textRatio(i),  src.colors["black"])
+                       menu_buttons[i]["content"], src.display["dwidth"] * make_textRatio(i)["x_ratio"], src.display["dheight"] * make_textRatio(i)["y_ratio"],  src.colors["black"])
     return mode
 
 

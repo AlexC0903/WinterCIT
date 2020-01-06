@@ -7,9 +7,8 @@ def text_objects(text, font, color):
 
 
 
-def draw_text(gameDisplay, font, size, content, ref_width, ref_height, ratio, color):
+def draw_text(gameDisplay, font, size, content, x, y, color):
     textStyle = pygame.font.Font(font, size)
     textSurf, textRect = text_objects(content, textStyle, color)
-    textRect.center = ((ref_width * ratio["x_ratio"]),
-                   ref_height * ratio["y_ratio"])
+    textRect.center = (x, y)
     gameDisplay.blit(textSurf, textRect)
