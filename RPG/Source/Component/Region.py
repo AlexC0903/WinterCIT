@@ -21,7 +21,7 @@ mouse = pygame.image.load("files/mouse.png")
 region = [(src.colors["green"],  [(src.display["dwidth"] - 50, 0, 1), (0, src.display["dheight"] - 50, 2)],
             [[cheese, 0, 0, 30, 30, static, 1], [cheese, 70, 150, 30, 30, static, 1], [cheese, 300, 450, 30, 30, moveCheese, 1]]),
           (src.colors["red"], [(src.display["dwidth"] - 50, 100, 0)], [[mouse, 300, 300, 60, 60, moveMouse, 1]]),
-          (src.colors["grey"], [(src.display["dwidth"] - 50, 100, 0)], [])]
+          (src.colors["brown"], [(src.display["dwidth"] - 50, 100, 0)], [])]
 
 
 def create_region(gameDisplay, region_id, player_pos_x, player_pos_y, player_info):

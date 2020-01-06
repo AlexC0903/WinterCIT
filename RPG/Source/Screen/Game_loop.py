@@ -9,10 +9,10 @@ import Source.Component.Hud as Hud
 
 playerImg = pygame.image.load("files/Manny.png")
 game_menuImg = pygame.image.load('files/game_menuImg.png')
-character_size = (50, 50)
+
 
 player_info = {"health": 100, "score": 0, "x": 1 / 2,
-               "y": 1 / 2, "w": 1 / 16, "h": 1 / 12, "region": 0}
+               "y": 1 / 2, "w": 1 / 25, "h": 1 / 15, "region": 0}
 danger_zone = [[0, -20, 800, 20], [0, 600, 800, 20], [-20, 0, 20, 600], [800, 0, 20, 600]]
 
 def player_move(player_info, display_size):
@@ -56,8 +56,8 @@ def drawScreen(gameDisplay, player_info, display_size):
                        x, y, int(w), int(h))
     Text.draw_text(gameDisplay, "freesansbold.ttf", 20, str(
         player_info["health"]), x, y, (30, 50, 69))
-    Hud.draw_Hud(gameDisplay, (255, 0, 255), 300,
-                 300, 60, 60, player_info["score"])
+    Hud.draw_Hud(gameDisplay, (src.colors["grey"]), (src.colors["white"]), display_size[0] - 70,
+                display_size[1] - 40, 60, 30, player_info["score"])
     return id
 
 
