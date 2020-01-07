@@ -27,7 +27,7 @@ region = [(src.colors["green"],  [(src.display["dwidth"] - 50, 0, 1), (0, src.di
            [cheese, 70, 150, 30, 30, static, 1, None, True, []],
            [cheese, 300, 450, 30, 30, moveCheese, 1, None, True, []],
            [rsk, 500, 500, 50, 60, static, 1, None, False, ["hihihi", " Iwant 3 cheese", " Because I'm hungry"]],
-           [npc, 500, 200, 300, 300, static, 1, (0, 100, 60, 70), False, []]
+           [npc, 500, 200, 300, 300, static, 1, (0, 100, 60, 70), False, ["hey", "I'm hungry too!"]]
            ]
          ),
           (src.colors["red"], [(src.display["dwidth"] - 50, 100, 0)],
@@ -49,18 +49,12 @@ def create_region(gameDisplay, region_id, player_pos_x, player_pos_y, player_inf
                 if sprites[8]:
                     sprites[6] = 0
                     player_info["score"] += 1
-                # pressedKeys = pygame.key.get_pressed()
-                # if pressedKeys[pygame.K_RETURN]  and sprites[9]:
-                #     is_dialogue_finished = False
-                #     index = 0
-                #     while not is_dialogue_finished:
-                #         Text.draw_text(gameDisplay, "freesansbold.ttf", 30, sprites[9][index],
-                #                        sprites[1], sprites[2] + 20, src.colors["red"])
-                #         pygame.display.update()
-                #         if (pygame.key.get_pressed() != pygame.K_SPACE):
-                #             continue
-                #         index += 1
-                #         is_dialogue_finished = True
+                else :
+                    if player_info["talk"]:
+                        if player_info["talk"] > len(sprites[9]):
+                            player_info["talk"] = 0
+                        else:
+                            Text.draw_text(gameDisplay, "freesansbold.ttf", 30, sprites[9][player_info["talk"]-1], sprites[1] + 20, sprites[2] + 20, src.colors["red"])
         sprites[1], sprites[2] = sprites[5](sprites[1], sprites[2])
 
     # Portals

@@ -12,7 +12,7 @@ game_menuImg = pygame.image.load('files/game_menuImg.png')
 
 
 player_info = {"health": 100, "score": 0, "x": 1 / 2,
-               "y": 1 / 2, "w": 1 / 25, "h": 1 / 15, "region": 0}
+               "y": 1 / 2, "w": 1 / 25, "h": 1 / 15, "region": 0, "talk" : 0}
 danger_zone = [[0, -20, 800, 20], [0, 600, 800, 20], [-20, 0, 20, 600], [800, 0, 20, 600]]
 
 def player_move(player_info, display_size):
@@ -33,7 +33,7 @@ def player_move(player_info, display_size):
     for blocks in danger_zone:
         if Sprite.check_collision([x * display_size[0], y * display_size[1], w * display_size[0], h * display_size[1]], [blocks[0], blocks[1], blocks[2], blocks[3]]):
             canMove *= 0
-    if canMove:
+    if canMove and not player_info["talk"]:
         if pressedKeys[pygame.K_LEFT]:
             player_info["x"] = x
         if pressedKeys[pygame.K_RIGHT]:
@@ -70,6 +70,10 @@ def game_loop(gameEvent, gameDisplay,  display_size):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 mode -= 1
+            elif event.key == pygame.K_RETURN:
+                player_info["talk"] += 1
+                print(player_info["talk"])
+
     return mode
 
 # # game_menuImg = pygame.transform.scale(game_menuImg, (40, 40))
