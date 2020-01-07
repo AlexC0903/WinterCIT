@@ -1,9 +1,10 @@
 import pygame
 
 
-def draw_sprite(gameDisplay, img, x, y, w, h):
+def draw_sprite(gameDisplay, img, x, y, w, h, area = None):
     img = pygame.transform.scale(img, (w, h))
-    gameDisplay.blit(img, (x, y))
+    gameDisplay.blit(img, (x, y), area)
+
 
 def check_collision(sprite1, sprite2):
     x_collide = 0
